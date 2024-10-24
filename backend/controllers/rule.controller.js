@@ -1,5 +1,10 @@
 const Rule = require("../models/rule.model");
-const { saveRule, combine_rules, evaluateNode } = require("../ruleEngine");
+const {
+  saveRule,
+  combine_rules,
+  evaluateNode,
+  saveEvaluation,
+} = require("../ruleEngine");
 const { ValidationError } = require("../validation");
 
 const getAllRules = async (req, res) => {

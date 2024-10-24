@@ -1,32 +1,35 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
   const [data, setData] = useState("");
-  const [error, setError] = useState("");
 
   const handleEvaluate = async () => {
     try {
-      setError("");
       const parsedData = JSON.parse(data);
-      const response = await fetch("http://localhost:5001/api/evaluate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ astData, ruleName, data: parsedData }),
+      const response = await axios.post("http://localhost:5001/api/evaluate", {
+        astData,
+        ruleName,
+        data: parsedData,
       });
-      const result = await response.json();
-      if (result.error) {
-        setError(result.error);
-      } else {
-        setEvaluation(result.evaluations);
-      }
+
+      setEvaluation(response.data.evaluations);
+      toast.success("Rule evaluated");
     } catch (error) {
-      setError("Error evaluating rule. Please check your JSON data format.");
-      console.error("Error evaluating rule:", error);
+      toast.error("Failed to evaluate rule");
     }
   };
 
   return (
     <div className="my-8 bg-white rounded-lg  ">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+      />
       <h2 className="text-2xl font-semibold mb-4">Evaluate Rule</h2>
 
       <div className="mb-4">
@@ -48,13 +51,6 @@ const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
       >
         Evaluate Rule
       </button>
-
-      {/* Error Message */}
-      {error && (
-        <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-md">
-          {error}
-        </div>
-      )}
     </div>
   );
 };

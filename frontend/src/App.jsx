@@ -15,7 +15,6 @@ const App = () => {
     try {
       setLoading(true);
       const response = await axios.get("http://localhost:5001/api/rules");
-      console.log(response);
       setRules(response.data.rules);
     } catch (error) {
       console.error("Error fetching rules:", error);

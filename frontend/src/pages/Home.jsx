@@ -35,8 +35,7 @@ const RuleEngine = ({ rules, setRules }) => {
         toast.error(response.data.error || "Failed to create rule");
       }
     } catch (error) {
-      toast.error("Error creating rule. Please check your input.");
-      console.error("Error creating rule:", error);
+      toast.error("Error creating rule. Please check your input.", error);
     }
   };
   const handleCombineRules = async () => {
@@ -52,8 +51,7 @@ const RuleEngine = ({ rules, setRules }) => {
         toast.error(response.data.error || "Failed to combine rules");
       }
     } catch (error) {
-      toast.error("Error combining rules. Please try again.");
-      console.error("Error combining rules:", error);
+      toast.error("Error combining rules. Please try again.", error);
     }
   };
 
