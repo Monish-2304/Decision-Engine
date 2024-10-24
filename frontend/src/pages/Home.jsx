@@ -3,6 +3,7 @@ import axios from "axios";
 import ASTtree from "../components/ASTtree";
 import EvaluateTree from "../components/EvaluateTree";
 import { ToastContainer, toast } from "react-toastify";
+import { URLS } from "../constants/url.constants";
 import "react-toastify/dist/ReactToastify.css";
 
 const RuleEngine = ({ rules, setRules }) => {
@@ -23,7 +24,7 @@ const RuleEngine = ({ rules, setRules }) => {
 
   const handleCreateRule = async () => {
     try {
-      const response = await axios.post("http://localhost:5001/api/rules", {
+      const response = await axios.post(`${URLS.BASE_API_URL}/rules`, {
         ruleName,
         ruleString,
       });
@@ -40,10 +41,9 @@ const RuleEngine = ({ rules, setRules }) => {
   };
   const handleCombineRules = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/combineRules",
-        { ruleNames: selectedRules }
-      );
+      const response = await axios.post(`${URLS.BASE_API_URL}/combineRules`, {
+        ruleNames: selectedRules,
+      });
       if (response.data.success) {
         setAst(response.data.combinedRule);
         toast.success("Rules combined successfully!");

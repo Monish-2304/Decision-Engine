@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { URLS } from "../constants/url.constants";
 import "react-toastify/dist/ReactToastify.css";
 
 const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
@@ -9,12 +10,11 @@ const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
   const handleEvaluate = async () => {
     try {
       const parsedData = JSON.parse(data);
-      const response = await axios.post("http://localhost:5001/api/evaluate", {
+      const response = await axios.post(`${URLS.BASE_API_URL}/evaluate`, {
         astData,
         ruleName,
         data: parsedData,
       });
-
       setEvaluation(response.data.evaluations);
       toast.success("Rule evaluated");
     } catch (error) {

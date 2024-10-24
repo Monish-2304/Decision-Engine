@@ -6,6 +6,7 @@ import Rules from "./pages/Rules";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import Help from "./pages/Help";
+import { URLS } from "./constants/url.constants";
 
 const App = () => {
   const [rules, setRules] = useState([]);
@@ -14,7 +15,7 @@ const App = () => {
   const getAllRules = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5001/api/rules");
+      const response = await axios.get(`${URLS.BASE_API_URL}/rules`);
       setRules(response.data.rules);
     } catch (error) {
       console.error("Error fetching rules:", error);
