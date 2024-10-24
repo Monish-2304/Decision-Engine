@@ -24,10 +24,14 @@ const RuleEngine = ({ rules, setRules }) => {
 
   const handleCreateRule = async () => {
     try {
-      const response = await axios.post(`${URLS.BASE_API_URL}/rules`, {
-        ruleName,
-        ruleString,
-      });
+      const response = await axios.post(
+        `${URLS.BASE_API_URL}/rules`,
+        {
+          ruleName,
+          ruleString,
+        },
+        { withCredentials: true }
+      );
       if (response.data.success) {
         setAst(response.data.rule.ast);
         setRules([...rules, response.data.rule]);
@@ -41,9 +45,13 @@ const RuleEngine = ({ rules, setRules }) => {
   };
   const handleCombineRules = async () => {
     try {
-      const response = await axios.post(`${URLS.BASE_API_URL}/combineRules`, {
-        ruleNames: selectedRules,
-      });
+      const response = await axios.post(
+        `${URLS.BASE_API_URL}/combineRules`,
+        {
+          ruleNames: selectedRules,
+        },
+        { withCredentials: true }
+      );
       if (response.data.success) {
         setAst(response.data.combinedRule);
         toast.success("Rules combined successfully!");

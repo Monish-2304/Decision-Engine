@@ -10,11 +10,15 @@ const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
   const handleEvaluate = async () => {
     try {
       const parsedData = JSON.parse(data);
-      const response = await axios.post(`${URLS.BASE_API_URL}/evaluate`, {
-        astData,
-        ruleName,
-        data: parsedData,
-      });
+      const response = await axios.post(
+        `${URLS.BASE_API_URL}/evaluate`,
+        {
+          astData,
+          ruleName,
+          data: parsedData,
+        },
+        { withCredentials: true }
+      );
       setEvaluation(response.data.evaluations);
       toast.success("Rule evaluated");
     } catch (error) {

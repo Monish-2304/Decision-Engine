@@ -15,7 +15,9 @@ const App = () => {
   const getAllRules = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${URLS.BASE_API_URL}/rules`);
+      const response = await axios.get(`${URLS.BASE_API_URL}/rules`, {
+        withCredentials: true,
+      });
       setRules(response.data.rules);
     } catch (error) {
       console.error("Error fetching rules:", error);
