@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import ASTtree from "../components/ASTtree";
 import EvaluateTree from "../components/EvaluateTree";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { URLS } from "../constants/url.constants";
-import "react-toastify/dist/ReactToastify.css";
+import { showToast } from "../config/toast.config";
 
 const RuleEngine = ({ rules, setRules }) => {
   const [ruleName, setRuleName] = useState("");
@@ -35,12 +35,12 @@ const RuleEngine = ({ rules, setRules }) => {
       if (response.data.success) {
         setAst(response.data.rule.ast);
         setRules([...rules, response.data.rule]);
-        toast.success("Rule created successfully!");
+        showToast.success("Rule created successfully!");
       } else {
-        toast.error(response.data.error || "Failed to create rule");
+        showToast.error(response.data.error || "Failed to create rule");
       }
     } catch (error) {
-      toast.error("Error creating rule. Please check your input.", error);
+      showToast.error("Error creating rule. Please check your input.", error);
     }
   };
   const handleCombineRules = async () => {
@@ -54,12 +54,12 @@ const RuleEngine = ({ rules, setRules }) => {
       );
       if (response.data.success) {
         setAst(response.data.combinedRule);
-        toast.success("Rules combined successfully!");
+        showToast.success("Rules combined successfully!");
       } else {
-        toast.error(response.data.error || "Failed to combine rules");
+        showToast.error(response.data.error || "Failed to combine rules");
       }
     } catch (error) {
-      toast.error("Error combining rules. Please try again.", error);
+      showToast.error("Error combining rules. Please try again.", error);
     }
   };
 
@@ -81,6 +81,7 @@ const RuleEngine = ({ rules, setRules }) => {
         autoClose={5000}
         hideProgressBar={false}
         closeOnClick
+        pauseOnHover
       />
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-md p-6 mb-8 space-y-6">

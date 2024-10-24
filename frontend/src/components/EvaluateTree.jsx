@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 import { URLS } from "../constants/url.constants";
-import "react-toastify/dist/ReactToastify.css";
-
+import { showToast } from "../config/toast.config";
 const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
   const [data, setData] = useState("");
 
@@ -20,20 +18,14 @@ const EvaluateTree = ({ astData, ruleName, setEvaluation }) => {
         { withCredentials: true }
       );
       setEvaluation(response.data.evaluations);
-      toast.success("Rule evaluated");
+      showToast.success("Rule evaluated");
     } catch (error) {
-      toast.error("Failed to evaluate rule");
+      showToast.error("Failed to evaluate rule");
     }
   };
 
   return (
     <div className="my-8 bg-white rounded-lg  ">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        closeOnClick
-      />
       <h2 className="text-2xl font-semibold mb-4">Evaluate Rule</h2>
 
       <div className="mb-4">
