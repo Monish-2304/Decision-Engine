@@ -15,7 +15,7 @@ const app = express();
 const port = process.env.PORT || 5001;
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173", "https://decisionengine.onrender.com/"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
